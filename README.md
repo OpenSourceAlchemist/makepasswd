@@ -4,7 +4,7 @@
 
 This work did not start with me.  I pulled it from the Debian package archive
 during my efforts to package it for [VoidLinux](http://www.voidlinux.eu/).  I
-decided to create a this git repo in order to help this code live on in a
+decided to create this git repo in order to help this code live on in a
 hopefully distribution-agnostic form.  I've used makepasswd for most of this
 century so far when I've needed a password quickly to meet specific criteria.
 I hope it is useful to you too.
