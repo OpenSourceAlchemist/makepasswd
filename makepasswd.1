@@ -1,0 +1,161 @@
+.\" Copyright (C) 1997-1998 Johnie Ingram (johnie@debian.org).
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" This page is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.TH makepasswd 1 "1998 February 9" "Debian Distribution" "UNIX Reference Manual"
+.SH NAME
+makepasswd \- generate and/or encrypt passwords
+.SH SYNOPSIS
+.B makepasswd
+[
+.B \--chars
+.I N
+]
+[
+.B \--clearfrom
+.I file
+]
+[
+.B \--count
+.I N
+]
+[
+.B \--crypt | --nocrypt | --crypt-md5
+]
+[
+.B \--cryptsalt
+.I N
+]
+[
+.B \--help
+]
+[
+.B \--maxchars
+.I N
+]
+[
+.B \--minchars
+.I N
+]
+[
+.B \--randomseed
+.I N
+]
+[
+.B \--rerandom
+.I N
+]
+[
+.B \--repeatpass
+.I N
+]
+[
+.B \--string
+.I string
+]
+[
+.B \--verbose | --noverbose
+]
+.SH DESCRIPTION
+.LP
+.B makepasswd
+generates true random passwords using /dev/urandom, with the emphasis on
+security over pronounceability.
+It can also encrypt plaintext passwords given on the command line.
+.SH OPTIONS
+.TP
+.B --chars N
+Generate passwords with exactly N characters (do not use with options
+--minchars and --maxchars).
+.TP
+.B --clearfrom FILE
+Use password from FILE instead of generating passwords.  Requires
+the --crypt or the --crypt-md5
+options; may not be used with these options: --chars, --maxchars, --minchars,
+--count, --string, --nocrypt.  Trailing newlines are removed but other white
+space is not.
+.TP
+.B --count N
+Produce a total of N passwords (the default is one).
+.TP
+.B --crypt
+Produce encrypted passwords.
+.TP
+.B --crypt-md5
+Produce encrypted passwords using the MD5 digest (hash) algorithm.
+.TP
+.B --cryptsalt N
+Use crypt() salt N, a positive number <= 4096.  If random seeds are
+desired, specify a zero value (the default).
+.TP
+.B --help
+Ignore other operands and produce only a help display.
+.TP
+.B --maxchars N
+Generate passwords with at most N characters (default = 10).
+.TP
+.B --minchars N
+Generate passwords with at least N characters (default = 8).
+.TP
+.B --nocrypt
+Do not encrypt the generated password(s) (the default).
+.TP
+.B --noverbose
+Display no labels on output (the default).
+.TP
+.B --randomseed N
+Use random number seed N, between 0 and 2^32 inclusive.  A zero value
+results in a real-random seed.
+This generates much less secure passwords than the default; not only does it
+generate predictable passwords due to the fixed seed, but the range of
+available seeds is 32 bits rather than the default of 256 bits, and cannot
+be changed without breaking expectations of previous users of this option.
+If possible, do not use this option.
+.TP
+.B --rerandom N
+Set the random seed value every N values used.  Specify zero to use a
+single seed value (the default). Specify one to get true-random
+passwords, though note that doing this too frequently will deplete the
+supply of entropy available in the kernel's entropy pool.
+.TP
+.B --repeatpass N
+Use each password N times (4096 maximum, --crypt must be set and
+--cryptsalt may not be set).
+.TP
+.B --string STRING
+Use the characters in STRING to generate random passwords.
+.TP
+.B --verbose
+Display labelling information on output.
+.SH HISTORY
+.LP
+.B makepasswd
+was originally part of the
+.B mkircconf
+program used to centrally administer the Linux Internet Support
+Cooperative IRC network.  It may potentially be of use in any
+situation where passwords must be secure and need not be memorized by
+humans.
+.LP
+Colin Watson modified it to use OpenSSL's pseudo-random number generator.
+.SH COPYRIGHT
+.LP
+Copyright (c) 1997-1998 by lilo <lilo@linpeople.org>.  All rights are
+reserved by the author.  This program may be used under the terms of
+version 2 of the GNU Public License.
+.SH "SEE ALSO"
+.LP
+.BR passwd (5)
